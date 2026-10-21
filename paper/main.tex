@@ -1,0 +1,31 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\title{Diversity Re-ranking with MMR and a Greedy DPP for Indonesia Tourism Destinations}
+\author{Patrick Gomes de Oliveira}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study deterministic diversity re-ranking of a classical collaborative
+relevance score for Indonesia tourism destination recommendation. A
+shrunk-cosine item-item kNN model produces a candidate pool, which is then
+re-ordered by Maximal Marginal Relevance (MMR) and, as an optional
+extension, by greedy MAP inference over a Determinantal Point Process
+(DPP). Both re-rankers operate on the same content-based similarity matrix
+(destination category and city) and the same relevance scores, which
+isolates the effect of the re-ranking strategy from the effect of the
+underlying recommender. We measure the resulting trade-off between ranking
+quality (NDCG, Recall, MAP) and list quality (intra-list diversity,
+category coverage).
+\end{abstract}
+\input{sections/01-introduction}
+\input{sections/02-dataset}
+\input{sections/03-feature-engineering}
+\input{sections/04-methodology}
+\input{sections/05-experiments}
+\input{sections/06-results}
+\input{sections/07-conclusion}
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

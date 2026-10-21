@@ -1,0 +1,78 @@
+# Feature specification for indonesia-tourism-diversity.
+#
+# The registry check in `recommender.features.registry` asserts this file and
+# the implementation agree in BOTH directions: a transform cannot be computed
+# without being declared, and a declaration cannot go unimplemented.
+#
+# Fields
+#   family     One of: user, item, interaction, context, text.
+#   fit_on     train_only -> statistic fitted strictly on the training split.
+#              catalogue  -> reads destination metadata only; no label signal.
+#   fill       Value substituted for an entity absent at serving time.
+#   rationale  Why the feature exists.
+
+version: 1
+dataset: indonesia_tourism_destination
+
+features:
+  - name: user_activity_count
+    family: user
+    dtype: float64
+    transform: user_activity_count
+    fit_on: train_only
+    fill:
+      unknown_user: 0.0
+    rationale: >
+      Number of training-time positive visits a user has rated. Separates a
+      user with enough history for the collaborative relevance score from a
+      near-cold user who falls back to the popularity floor.
+
+  - name: user_mean_rating
+    family: user
+    dtype: float64
+    transform: user_mean_rating
+    fit_on: train_only
+    fill:
+      unknown_user: 3.0
+    rationale: >
+      A user's average overall rating (1-5 scale) captures how generous a
+      rater they are, useful context even though relevance is computed on
+      binarized implicit feedback.
+
+  - name: item_popularity_rank
+    family: item
+    dtype: float64
+    transform: item_popularity_rank
+    fit_on: train_only
+    fill:
+      unknown_item: 1.0
+    rationale: >
+      Fraction-rank of a destination's training-time visit count. Used both
+      as the cold-start fallback score and to measure popularity bias in the
+      final ranking.
+
+  - name: item_category
+    family: item
+    dtype: category
+    transform: item_category
+    fit_on: catalogue
+    fill:
+      unknown_item: "unknown"
+    rationale: >
+      The destination's declared category (e.g. "Bahari", "Budaya",
+      "Taman Hiburan"), read directly from the catalogue. This is also the
+      primary descriptor the MMR/DPP content similarity matrix is built
+      from, so it must never be derived from interaction labels.
+
+  - name: item_city
+    family: text
+    dtype: category
+    transform: item_city
+    fit_on: catalogue
+    fill:
+      unknown_item: "unknown"
+    rationale: >
+      City the destination is located in, read directly from the catalogue.
+      Secondary descriptor for the content similarity matrix, down-weighted
+      relative to category so two destinations in the same city are not
+      treated as near-duplicates purely on that basis.

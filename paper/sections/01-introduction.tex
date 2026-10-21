@@ -1,0 +1,10 @@
+\section{Introduction}
+Pure relevance ranking tends to recommend near-duplicate destinations: the
+top of a ranking over co-visitation similarity is frequently dominated by a
+single popular category. This project implements two classical,
+non-neural, deterministic re-ranking strategies that explicitly trade some
+relevance for diversity: Maximal Marginal Relevance
+\cite{carbonell1998mmr}, a greedy heuristic, and a greedy approximation to
+Determinantal Point Process MAP inference \cite{kulesza2012dpp}, which
+models the whole selected set jointly rather than greedily balancing one
+item at a time.

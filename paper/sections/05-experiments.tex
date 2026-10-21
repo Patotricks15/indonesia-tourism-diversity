@@ -1,0 +1,10 @@
+\section{Experimental protocol}
+As in \texttt{restaurant-ease-recommender}, the dataset has no timestamp,
+so we use a user-aware random holdout (10\% validation, 20\% test per
+eligible user). We compare four rankers at a fixed candidate pool size of
+50 and list length $k=10$: plain relevance, MMR ($\lambda=0.5$), greedy DPP,
+and a non-personalised popularity floor. Ranking quality is measured by
+NDCG@10, Recall@10, MAP@10 and catalogue coverage; list quality by
+intra-list diversity ($1$ minus the mean pairwise content similarity within
+a list) and category coverage (distinct categories per list, normalised by
+$k$).

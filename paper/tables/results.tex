@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering
+\caption{Top-10 ranking and list-quality metrics on the synthetic CI fixture (test partition).}
+\label{tab:results}
+\begin{tabular}{lrrrr}
+\toprule
+Model & NDCG@10 & Recall@10 & ILD & Cat. coverage \\
+\midrule
+RelevanceOnly & 0.1139 & 0.2632 & 0.8271 & 0.5211 \\
+MMR ($\lambda{=}0.5$) & 0.0863 & 0.1842 & 0.8837 & 0.6000 \\
+DPP           & 0.0875 & 0.1842 & 0.8815 & 0.6000 \\
+Popularity    & 0.1287 & 0.3158 & 0.8658 & 0.5526 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,12 @@
+\section{Limitations and conclusion}
+MMR's trade-off is controlled by a single scalar $\lambda$ that is not
+learned from data; a production system would tune it against a business
+objective (e.g. session-level engagement) rather than a fixed offline
+split. The DPP kernel's quality-diversity decomposition assumes the content
+similarity matrix is the only axis worth diversifying along, ignoring
+price or geographic proximity. Both re-rankers also inherit any popularity
+bias already present in the underlying collaborative relevance score, since
+neither alters \emph{which} items are relevant, only their relative order.
+Overall, MMR and DPP are both effective, non-neural, deterministic
+mechanisms for trading a measured amount of relevance for a measured gain
+in list diversity.

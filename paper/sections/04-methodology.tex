@@ -1,0 +1,42 @@
+\section{Methodology}
+
+\subsection{Relevance model}
+A shrunk-cosine item-item co-visitation matrix $S^{\text{cf}}$ is built from
+the binary training interaction matrix $X$. A user's relevance score over
+every destination is $\hat{r}_u = \sum_{i \in H_u} S^{\text{cf}}_i$, where
+$H_u$ is the user's training-time positive set. The top-$P$ scoring unseen
+destinations form the candidate pool re-ranked below.
+
+\subsection{Content similarity}
+A separate, content-only similarity matrix $S^{\text{ct}}$ is built from
+one-hot (category, city) descriptors, cosine-normalised, with city
+down-weighted by $0.5$ relative to category.
+
+\subsection{Maximal Marginal Relevance}
+MMR selects items greedily. Given already-selected set $Y$, the next item
+maximises
+
+\begin{equation}
+  \lambda \, \hat{r}(d) - (1-\lambda) \max_{d' \in Y} S^{\text{ct}}(d, d'),
+  \label{eq:mmr}
+\end{equation}
+
+where $\lambda \in [0,1]$ trades relevance for diversity; $\lambda=1$
+recovers plain relevance ranking.
+
+\subsection{Determinantal Point Process}
+A DPP models a whole subset's probability as proportional to
+$\det(L_S)$, where $L_S$ is the kernel restricted to subset $S$. We use the
+quality-diversity decomposition
+
+\begin{equation}
+  L_{ij} = \hat{r}(i)\, \hat{r}(j)\, S^{\text{ct}}(i, j), \quad L_{ii} = \hat{r}(i)^2,
+  \label{eq:dpp-kernel}
+\end{equation}
+
+so that a large diagonal rewards relevance and small off-diagonal entries
+reward dissimilarity. Exact MAP inference over subsets of size $k$ is
+NP-hard; we use the fast greedy approximation of Chen, Zhang and Zhou
+\cite{chen2018fastgreedy}, which incrementally updates a Cholesky-like
+factor $c_i$ and residual $d_i^2$ in $O(k^2 n)$ instead of recomputing a
+determinant from scratch at every step.

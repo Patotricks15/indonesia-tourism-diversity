@@ -1,0 +1,70 @@
+<mxfile host="Drawpyo" modified="2026-10-21T18:42:34" agent="Python 3.12, Drawpyo 0.23" version="21.6.5" type="device">
+  <diagram name="Recommendation architecture" id="132150871114672">
+    <mxGraphModel dx="2037" dy="830" grid="1" gridSize="10" guides="1" toolTips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="132150871114720" value="Raw tourism ratings&#xa;user · place · overall rating" style="whiteSpace=wrap;rounded=1;fillColor=#F7FAFC;strokeColor=#9AA5B1;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="40" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871114912" value="Implicit view&#xa;rating &gt;= 4 -&gt; positive" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="158" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871115488" value="Iterative k-core filter&#xa;&gt;=3 interactions per user/place" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="276" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871116064" value="User-aware random holdout&#xa;no timestamp in this dataset" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="394" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871116592" value="ItemKNN relevance&#xa;shrunk cosine co-visitation" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="512" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871117168" value="MMR / DPP re-ranking&#xa;relevance + content similarity (category, city)" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="630" width="260" height="86" as="geometry" />
+</mxCell>
+        <mxCell id="132150871117744" value="Evaluation&#xa;NDCG@10 · Recall@10 · intra-list diversity · category coverage" style="whiteSpace=wrap;rounded=1;fillColor=#FFF5F5;strokeColor=#C53030;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="763" width="260" height="86" as="geometry" />
+</mxCell>
+        <mxCell id="132150871118320" value="Feature registry&#xa;conf/features.yaml" style="whiteSpace=wrap;rounded=1;fillColor=#E6FFFA;strokeColor=#277116;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="90" y="506" width="240" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871118896" value="Content similarity&#xa;category + city one-hot cosine" style="whiteSpace=wrap;rounded=1;fillColor=#E6FFFA;strokeColor=#277116;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="90" y="636" width="240" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871119472" value="Top-N publication&#xa;DynamoDB · parity-tested" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="750" y="749" width="240" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="132150871120000" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871114720" target="132150871114912" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871120480" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871114912" target="132150871115488" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871120624" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871115488" target="132150871116064" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871120768" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871116064" target="132150871116592" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871120912" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871116592" target="132150871117168" value="candidate pool">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871121056" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871117168" target="132150871117744" value="diversified list">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871121200" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871115488" target="132150871118320" value="train only">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871121344" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871118320" target="132150871116592" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871121488" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871118896" target="132150871117168" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="132150871121632" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="132150871117168" target="132150871119472" value="top-N">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
